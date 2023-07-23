@@ -5,8 +5,9 @@ const fruits = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Black
 
 function search(str) {
 	const results = fruits.filter(fruit => {
-		const lowerCaseStr = fruit.toLowerCase();
-		return lowerCaseStr.includes(str);
+		const lowerCaseFruit = fruit.toLowerCase();
+		const lowerCaseInputVal = str.toLowerCase();
+		return lowerCaseFruit.includes(lowerCaseInputVal);
 	})
 
 	return results;
@@ -14,20 +15,36 @@ function search(str) {
 
 function searchHandler(e) {
 	e.preventDefault();
+
+	// always create new ul for every keyup
+	suggestions.innerHTML = '';
+	// if no values, don't create any li elements and return undefined
 	if (!e.target.value) return;
 
 	const searchBarStr = e.target.value;
 	const matchingFruits = search(searchBarStr);
-	console.log(matchingFruits);
+	showSuggestions(matchingFruits, searchBarStr);
 }
 
 function showSuggestions(results, inputVal) {
-
-	// TODO
+	results.forEach(fruit => {
+		const liEl = document.createElement('li');
+		const listinnerEl = fruit.replace(inputVal, `<strong>${inputVal}</strong>`);
+		liEl.innerHTML = listinnerEl;
+		suggestions.appendChild(liEl);
+	})
 }
 
 function useSuggestion(e) {
-	// TODO
+	const suggestionClicked = e.target.innerText;
+	input.value = suggestionClicked;
+	suggestions.innerHTML = '';
+}
+
+function boldString(str, inputVal) {
+	const lowerCase = str.toLowerCase();
+
+
 }
 
 input.addEventListener('keyup', searchHandler);
