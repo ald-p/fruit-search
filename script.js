@@ -29,8 +29,7 @@ function searchHandler(e) {
 function showSuggestions(results, inputVal) {
 	results.forEach(fruit => {
 		const liEl = document.createElement('li');
-		const listinnerEl = fruit.replace(inputVal, `<strong>${inputVal}</strong>`);
-		liEl.innerHTML = listinnerEl;
+		liEl.innerHTML = boldString(fruit, inputVal);
 		suggestions.appendChild(liEl);
 	})
 }
@@ -41,10 +40,9 @@ function useSuggestion(e) {
 	suggestions.innerHTML = '';
 }
 
-function boldString(str, inputVal) {
-	const lowerCase = str.toLowerCase();
-
-
+function boldString(fruit, inputVal) {
+	const regEx = new RegExp(inputVal, "ig");
+	return fruit.replace(regEx, `<b>$&</b>`);
 }
 
 input.addEventListener('keyup', searchHandler);
