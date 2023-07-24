@@ -27,11 +27,13 @@ function searchHandler(e) {
 }
 
 function showSuggestions(results, inputVal) {
-	results.forEach(fruit => {
+	for (const [index, fruit] of results.entries()) {
+		// only show 10 results at most
+		if (index == 10) return;
 		const liEl = document.createElement('li');
 		liEl.innerHTML = boldString(fruit, inputVal);
 		suggestions.appendChild(liEl);
-	})
+	}
 }
 
 function useSuggestion(e) {
