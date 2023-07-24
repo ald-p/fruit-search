@@ -3,6 +3,7 @@ const suggestions = document.querySelector('.suggestions ul');
 
 const fruits = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
 
+/* find matching fruits with given string */
 function search(str) {
 	const results = fruits.filter(fruit => {
 		const lowerCaseFruit = fruit.toLowerCase();
@@ -26,6 +27,7 @@ function searchHandler(e) {
 	showSuggestions(matchingFruits, searchBarStr);
 }
 
+/* create unordered list on DOM to show 10 suggestions at most */
 function showSuggestions(results, inputVal) {
 	for (const [index, fruit] of results.entries()) {
 		// only show 10 results at most
@@ -36,16 +38,19 @@ function showSuggestions(results, inputVal) {
 	}
 }
 
+/* changes input value on search bar when suggestion is clicked */
 function useSuggestion(e) {
 	const suggestionClicked = e.target.innerText;
 	input.value = suggestionClicked;
 	suggestions.innerHTML = '';
 }
 
+/* extracts string to be bolded given string using regEx */
 function boldString(fruit, inputVal) {
 	const regEx = new RegExp(inputVal, "ig");
 	return fruit.replace(regEx, `<b>$&</b>`);
 }
 
+/* Event listeners */
 input.addEventListener('keyup', searchHandler);
 suggestions.addEventListener('click', useSuggestion);
