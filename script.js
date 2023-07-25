@@ -30,8 +30,6 @@ function searchHandler(e) {
 /* create unordered list on DOM to show 10 suggestions at most */
 function showSuggestions(results, inputVal) {
 	for (const [index, fruit] of results.entries()) {
-		// only show 10 results at most
-		if (index == 10) return;
 		const liEl = document.createElement('li');
 		liEl.innerHTML = boldString(fruit, inputVal);
 		suggestions.appendChild(liEl);
